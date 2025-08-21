@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrade Investimentos - Assessoria em Leilões de Imóveis</title>
+    <meta name="description" content="Assessoria especializada em leilões de imóveis com 10 anos de experiência. Análise de viabilidade, documentação e desocupação.">
+    <meta name="keywords" content="leilão, imóveis, CAIXA, assessoria, investimento, Vila Velha, Espírito Santo">
+    <meta name="author" content="Andrade Investimentos">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Andrade Investimentos - Assessoria em Leilões de Imóveis">
+    <meta property="og:description" content="Assessoria especializada em leilões de imóveis com 10 anos de experiência. Análise de viabilidade, documentação e desocupação.">
+    <meta property="og:image" content="">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="">
+    <meta property="twitter:title" content="Andrade Investimentos - Assessoria em Leilões de Imóveis">
+    <meta property="twitter:description" content="Assessoria especializada em leilões de imóveis com 10 anos de experiência. Análise de viabilidade, documentação e desocupação.">
+    <meta property="twitter:image" content="">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Vue.js Production -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div id="app">
+        <!-- Header/Navigation -->
+        <header class="bg-white shadow-lg sticky top-0 z-50">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-home text-white text-xl"></i>
+                        </div>
+                        <h1 class="text-2xl font-bold text-gray-800">Andrade Investimentos</h1>
+                    </div>
+                    <button 
+                        @click="scrollToContact"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-300"
+                    >
+                        <i class="fab fa-whatsapp mr-2"></i>
+                        Falar Conosco
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="gradient-bg text-white py-20">
+            <div class="container mx-auto px-4 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-5xl font-bold mb-6 leading-tight">
+                        Especialistas em 
+                        <span class="text-yellow-300">Leilões de Imóveis</span>
+                    </h2>
+                    <p class="text-xl mb-8 text-blue-100 leading-relaxed">
+                        Há 10 anos ajudando investidores a conquistar o imóvel dos sonhos através de leilões. 
+                        Oferecemos análise completa, documentação e suporte total no processo.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <button 
+                            @click="scrollToSearchAuctions"
+                            class="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg"
+                        >
+                            <i class="fas fa-search mr-2"></i>
+                            Pesquisar Leilões
+                        </button>
+                        <button 
+                            @click="scrollToServices"
+                            class="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-300 shadow-lg"
+                        >
+                            <i class="fas fa-cogs mr-2"></i>
+                            Nossos Serviços
+                        </button>
+                        <button 
+                            @click="openWhatsApp"
+                            class="bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg pulse-animation"
+                        >
+                            <i class="fab fa-whatsapp mr-2"></i>
+                            Falar no WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre Nós -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-8">Sobre a Andrade Investimentos</h3>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div class="text-left">
+                            <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                                Somos uma <strong>empresa familiar</strong> com mais de <strong>10 anos de experiência</strong> 
+                                no mercado de leilões de imóveis, especializados principalmente nos leilões da 
+                                <strong>CAIXA Econômica Federal</strong>.
+                            </p>
+                            <p class="text-lg text-gray-600 leading-relaxed">
+                                Nossa missão é tornar o processo de aquisição de imóveis em leilão mais seguro, 
+                                transparente e acessível para nossos clientes, oferecendo suporte completo desde 
+                                a análise inicial até a entrega das chaves.
+                            </p>
+                        </div>
+                        <div class="bg-blue-50 p-8 rounded-lg">
+                            <div class="text-center">
+                                <div class="text-4xl font-bold text-blue-600 mb-2">10+</div>
+                                <div class="text-gray-600 mb-4">Anos de Experiência</div>
+                                <div class="text-4xl font-bold text-blue-600 mb-2">500+</div>
+                                <div class="text-gray-600 mb-4">Imóveis Analisados</div>
+                                <div class="text-4xl font-bold text-blue-600 mb-2">100%</div>
+                                <div class="text-gray-600">Empresa Familiar</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pesquisa de Leilões -->
+        <section id="search-auctions" class="py-16 bg-blue-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Pesquisar Imóveis em Leilão</h3>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Encontre imóveis em leilão nos principais sites especializados. 
+                        Nossa ferramenta busca automaticamente as melhores oportunidades para você.
+                    </p>
+                </div>
+
+                <!-- Filtros de Pesquisa -->
+                <div class="max-w-4xl mx-auto mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <div class="grid md:grid-cols-3 gap-4 mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Estado</label>
+                                <select v-model="searchFilters.state" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="">Todos os Estados</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Cidade</label>
+                                <input 
+                                    v-model="searchFilters.city" 
+                                    type="text" 
+                                    placeholder="Digite a cidade"
+                                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                >
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Tipo de Imóvel</label>
+                                <select v-model="searchFilters.propertyType" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="">Todos os Tipos</option>
+                                    <option value="apartamento">Apartamento</option>
+                                    <option value="casa">Casa</option>
+                                    <option value="terreno">Terreno</option>
+                                    <option value="comercial">Comercial</option>
+                                    <option value="rural">Rural</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Valor Mínimo (R$)</label>
+                                <input 
+                                    v-model="searchFilters.minValue" 
+                                    type="number" 
+                                    placeholder="0"
+                                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                >
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Valor Máximo (R$)</label>
+                                <input 
+                                    v-model="searchFilters.maxValue" 
+                                    type="number" 
+                                    placeholder="1000000"
+                                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                >
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button 
+                                @click="searchAuctions"
+                                :disabled="isSearching"
+                                class="bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white px-8 py-3 rounded-lg font-semibold transition-colors duration-300 inline-flex items-center"
+                            >
+                                <i class="fas fa-search mr-2"></i>
+                                <span v-if="!isSearching">Pesquisar Leilões</span>
+                                <span v-else>Pesquisando...</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resultados da Pesquisa -->
+                <div v-if="searchResults.length > 0" class="max-w-6xl mx-auto">
+                    <div class="mb-6">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-2">Resultados Encontrados</h4>
+                        <p class="text-gray-600">{{ searchResults.length }} imóveis encontrados</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div 
+                            v-for="property in searchResults" 
+                            :key="property.id"
+                            class="bg-white rounded-lg shadow-lg overflow-hidden card-hover"
+                        >
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <h5 class="text-lg font-semibold text-gray-800 line-clamp-2">{{ property.title }}</h5>
+                                    <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">{{ property.source }}</span>
+                                </div>
+                                
+                                <div class="space-y-2 mb-4">
+                                    <div class="flex items-center text-gray-600">
+                                        <i class="fas fa-map-marker-alt mr-2 text-blue-600"></i>
+                                        <span class="text-sm">{{ property.location }}</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600">
+                                        <i class="fas fa-home mr-2 text-blue-600"></i>
+                                        <span class="text-sm">{{ property.type }}</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-600">
+                                        <i class="fas fa-calendar mr-2 text-blue-600"></i>
+                                        <span class="text-sm">{{ property.auctionDate }}</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="border-t pt-4">
+                                    <div class="flex justify-between items-center mb-3">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Valor de Avaliação</p>
+                                            <p class="text-lg font-bold text-gray-800">{{ formatCurrency(property.evaluationValue) }}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm text-gray-500">Lance Inicial</p>
+                                            <p class="text-lg font-bold text-green-600">{{ formatCurrency(property.initialBid) }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex gap-2">
+                                        <button 
+                                            @click="viewPropertyDetails(property)"
+                                            class="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded text-sm font-medium transition-colors duration-300"
+                                        >
+                                            Ver Detalhes
+                                        </button>
+                                        <button 
+                                            @click="requestAnalysis(property)"
+                                            class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded text-sm font-medium transition-colors duration-300"
+                                        >
+                                            Solicitar Análise
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estado de Loading -->
+                <div v-if="isSearching" class="text-center py-12">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-600">Pesquisando nos sites de leilão...</p>
+                </div>
+
+                <!-- Mensagem quando não há resultados -->
+                <div v-if="!isSearching && searchResults.length === 0 && hasSearched" class="text-center py-12">
+                    <i class="fas fa-search text-gray-400 text-4xl mb-4"></i>
+                    <h4 class="text-xl font-semibold text-gray-600 mb-2">Nenhum imóvel encontrado</h4>
+                    <p class="text-gray-500">Tente ajustar os filtros de pesquisa para encontrar mais opções.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Serviços -->
+        <section id="services" class="py-16 bg-gray-50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Nossos Serviços</h3>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Oferecemos um serviço completo para que você tenha segurança e tranquilidade 
+                        em todo o processo de aquisição do seu imóvel em leilão.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                    <!-- Análise de Viabilidade -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg card-hover">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-chart-line text-blue-600 text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-3">Análise de Viabilidade</h4>
+                        </div>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Avaliação do potencial de investimento
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Análise de localização e valorização
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Estudo de custos e rentabilidade
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Relatório detalhado de viabilidade
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Análise Jurídica -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg card-hover">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-gavel text-blue-600 text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-3">Análise Jurídica</h4>
+                        </div>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Verificação de matrículas
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Análise de processos judiciais
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Identificação de ônus e gravames
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Parecer jurídico especializado
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Documentação e Desocupação -->
+                    <div class="bg-white p-8 rounded-lg shadow-lg card-hover">
+                        <div class="text-center mb-6">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-file-alt text-blue-600 text-2xl"></i>
+                            </div>
+                            <h4 class="text-xl font-semibold text-gray-800 mb-3">Documentação & Desocupação</h4>
+                        </div>
+                        <ul class="text-gray-600 space-y-2">
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Preparação de toda documentação
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Acompanhamento do processo
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Suporte na desocupação
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                Entrega das chaves
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Por que escolher -->
+        <section class="py-16 bg-white">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Por que escolher a Andrade Investimentos?</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Empresa Familiar</h4>
+                        <p class="text-gray-600 text-sm">Atendimento personalizado e relacionamento próximo com nossos clientes</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-medal text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">10 Anos de Experiência</h4>
+                        <p class="text-gray-600 text-sm">Conhecimento profundo do mercado de leilões e suas particularidades</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-university text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Especialistas CAIXA</h4>
+                        <p class="text-gray-600 text-sm">Foco principal nos leilões da CAIXA Econômica Federal</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-shield-alt text-blue-600 text-2xl"></i>
+                        </div>
+                        <h4 class="font-semibold text-gray-800 mb-2">Segurança Total</h4>
+                        <p class="text-gray-600 text-sm">Análise completa para minimizar riscos e garantir bons investimentos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section id="contact" class="gradient-bg text-white py-16">
+            <div class="container mx-auto px-4 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h3 class="text-3xl font-bold mb-6">Pronto para investir em leilões com segurança?</h3>
+                    <p class="text-xl mb-8 text-blue-100">
+                        Entre em contacto connosco e descubra como podemos ajudar você a encontrar 
+                        o imóvel perfeito através de leilões.
+                    </p>
+                    <button 
+                        @click="openWhatsApp"
+                        class="bg-green-500 hover:bg-green-600 text-white px-10 py-4 rounded-lg font-semibold text-lg transition-colors duration-300 shadow-lg pulse-animation inline-flex items-center"
+                    >
+                        <i class="fab fa-whatsapp mr-3 text-2xl"></i>
+                        Falar no WhatsApp Agora
+                    </button>
+                    <div class="mt-6 text-blue-100">
+                        <i class="fas fa-phone mr-2"></i>
+                        +55 27 99224-2992
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                        <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-home text-white"></i>
+                        </div>
+                        <span class="text-xl font-semibold">Andrade Investimentos</span>
+                    </div>
+                    <div class="text-center md:text-right">
+                        <p class="text-gray-400 mb-2">Assessoria especializada em leilões de imóveis</p>
+                        <p class="text-gray-400">© 2024 Andrade Investimentos. Todos os direitos reservados.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+
+        createApp({
+            data() {
+                return {
+                    whatsappNumber: '+5527992242992',
+                    whatsappMessage: 'Olá! Gostaria de saber mais sobre os serviços da Andrade Investimentos para leilões de imóveis.',
+                    // Dados para pesquisa de leilões
+                    searchFilters: {
+                        state: '',
+                        city: '',
+                        propertyType: '',
+                        minValue: '',
+                        maxValue: ''
+                    },
+                    searchResults: [],
+                    isSearching: false,
+                    hasSearched: false,
+                    // Sites de leilão para pesquisar
+                    auctionSites: [
+                        {
+                            name: 'Leiloeiro Público',
+                            url: 'https://www.leiloeiropublico.com.br/agenda.aspx',
+                            selector: '.leilao-item'
+                        },
+                        {
+                            name: 'Fidalgo Leilões',
+                            url: 'https://www.fidalgoleiloes.com.br/index.php',
+                            selector: '.property-item'
+                        }
+                    ]
+                }
+            },
+            methods: {
+                openWhatsApp() {
+                    const encodedMessage = encodeURIComponent(this.whatsappMessage);
+                    const whatsappUrl = `https://wa.me/${this.whatsappNumber.replace(/\D/g, '')}?text=${encodedMessage}`;
+                    window.open(whatsappUrl, '_blank');
+                },
+                scrollToServices() {
+                    document.getElementById('services').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                },
+                scrollToContact() {
+                    document.getElementById('contact').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                },
+                scrollToSearchAuctions() {
+                    document.getElementById('search-auctions').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });
+                },
+                // Métodos para pesquisa de leilões
+                async searchAuctions() {
+                    this.isSearching = true;
+                    this.hasSearched = true;
+                    this.searchResults = [];
+
+                    try {
+                        // Simular pesquisa nos sites (em produção seria feito via backend)
+                        await this.simulateSearch();
+                        
+                        // Filtrar resultados baseado nos critérios
+                        this.filterResults();
+                        
+                    } catch (error) {
+                        console.error('Erro na pesquisa:', error);
+                        alert('Erro ao pesquisar leilões. Tente novamente.');
+                    } finally {
+                        this.isSearching = false;
+                    }
+                },
+
+                async simulateSearch() {
+                    // Simular delay de pesquisa
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    // Dados simulados de exemplo (em produção viria do backend)
+                    const mockData = [
+                        {
+                            id: 1,
+                            title: 'Apartamento 2 quartos - Centro',
+                            location: 'Vitória, ES',
+                            type: 'Apartamento',
+                            auctionDate: '15/09/2024',
+                            evaluationValue: 280000,
+                            initialBid: 196000,
+                            source: 'Leiloeiro Público',
+                            state: 'ES',
+                            city: 'Vitória'
+                        },
+                        {
+                            id: 2,
+                            title: 'Casa 3 quartos com quintal',
+                            location: 'Vila Velha, ES',
+                            type: 'Casa',
+                            auctionDate: '22/09/2024',
+                            evaluationValue: 450000,
+                            initialBid: 315000,
+                            source: 'Fidalgo Leilões',
+                            state: 'ES',
+                            city: 'Vila Velha'
+                        },
+                        {
+                            id: 3,
+                            title: 'Terreno comercial - Rodovia',
+                            location: 'Serra, ES',
+                            type: 'Terreno',
+                            auctionDate: '28/09/2024',
+                            evaluationValue: 180000,
+                            initialBid: 126000,
+                            source: 'Leiloeiro Público',
+                            state: 'ES',
+                            city: 'Serra'
+                        },
+                        {
+                            id: 4,
+                            title: 'Apartamento 3 quartos - Praia do Canto',
+                            location: 'Vitória, ES',
+                            type: 'Apartamento',
+                            auctionDate: '05/10/2024',
+                            evaluationValue: 650000,
+                            initialBid: 455000,
+                            source: 'Fidalgo Leilões',
+                            state: 'ES',
+                            city: 'Vitória'
+                        },
+                        {
+                            id: 5,
+                            title: 'Casa comercial - Centro',
+                            location: 'Cariacica, ES',
+                            type: 'Comercial',
+                            auctionDate: '12/10/2024',
+                            evaluationValue: 320000,
+                            initialBid: 224000,
+                            source: 'Leiloeiro Público',
+                            state: 'ES',
+                            city: 'Cariacica'
+                        },
+                        {
+                            id: 6,
+                            title: 'Apartamento 1 quarto - Jardim Camburi',
+                            location: 'Vitória, ES',
+                            type: 'Apartamento',
+                            auctionDate: '18/10/2024',
+                            evaluationValue: 220000,
+                            initialBid: 154000,
+                            source: 'Fidalgo Leilões',
+                            state: 'ES',
+                            city: 'Vitória'
+                        }
+                    ];
+
+                    this.searchResults = mockData;
+                },
+
+                filterResults() {
+                    let filtered = [...this.searchResults];
+
+                    // Filtrar por estado
+                    if (this.searchFilters.state) {
+                        filtered = filtered.filter(property => 
+                            property.state === this.searchFilters.state
+                        );
+                    }
+
+                    // Filtrar por cidade
+                    if (this.searchFilters.city) {
+                        filtered = filtered.filter(property => 
+                            property.city.toLowerCase().includes(this.searchFilters.city.toLowerCase())
+                        );
+                    }
+
+                    // Filtrar por tipo de imóvel
+                    if (this.searchFilters.propertyType) {
+                        filtered = filtered.filter(property => 
+                            property.type.toLowerCase() === this.searchFilters.propertyType.toLowerCase()
+                        );
+                    }
+
+                    // Filtrar por valor mínimo
+                    if (this.searchFilters.minValue) {
+                        filtered = filtered.filter(property => 
+                            property.initialBid >= parseInt(this.searchFilters.minValue)
+                        );
+                    }
+
+                    // Filtrar por valor máximo
+                    if (this.searchFilters.maxValue) {
+                        filtered = filtered.filter(property => 
+                            property.initialBid <= parseInt(this.searchFilters.maxValue)
+                        );
+                    }
+
+                    this.searchResults = filtered;
+                },
+
+                formatCurrency(value) {
+                    return new Intl.NumberFormat('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL'
+                    }).format(value);
+                },
+
+                viewPropertyDetails(property) {
+                    // Abrir detalhes do imóvel em nova janela/modal
+                    const message = `Olá! Gostaria de mais informações sobre o imóvel: ${property.title} - ${property.location}. Valor de avaliação: ${this.formatCurrency(property.evaluationValue)}, Lance inicial: ${this.formatCurrency(property.initialBid)}. Data do leilão: ${property.auctionDate}.`;
+                    const encodedMessage = encodeURIComponent(message);
+                    const whatsappUrl = `https://wa.me/${this.whatsappNumber.replace(/\D/g, '')}?text=${encodedMessage}`;
+                    window.open(whatsappUrl, '_blank');
+                },
+
+                requestAnalysis(property) {
+                    // Solicitar análise do imóvel
+                    const message = `Olá! Gostaria de solicitar uma análise completa do imóvel: ${property.title} - ${property.location}. Valor de avaliação: ${this.formatCurrency(property.evaluationValue)}, Lance inicial: ${this.formatCurrency(property.initialBid)}. Data do leilão: ${property.auctionDate}. Por favor, me enviem um orçamento para análise de viabilidade e jurídica.`;
+                    const encodedMessage = encodeURIComponent(message);
+                    const whatsappUrl = `https://wa.me/${this.whatsappNumber.replace(/\D/g, '')}?text=${encodedMessage}`;
+                    window.open(whatsappUrl, '_blank');
+                }
+            },
+            mounted() {
+                // Adicionar animação suave ao scroll
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const target = document.querySelector(this.getAttribute('href'));
+                        if (target) {
+                            target.scrollIntoView({
+                                behavior: 'smooth'
+                            });
+                        }
+                    });
+                });
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
